@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .calculator {
+            max-width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .calculator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .calculator-header h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .calculator-header button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .calculator-header button:hover {
+            background-color: #3e8e41;
+        }
+        .calculator-body {
+            padding: 20px;
+        }
+        .calculator-body input[type="text"] {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            font-size: 24px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .calculator-body .button-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            padding: 20px;
+        }
+        .calculator-body .button-grid button {
+            padding: 10px;
+            font-size: 24px;
+            border: none;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            cursor: pointer;
+        }
+        .calculator-body .button-grid button:hover {
+            background-color: #ccc;
+        }
+        .calculator-body .button-grid button:active {
+            background-color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="calculator-header">
+            <h2>Calculator</h2>
+            <button id="clear" class="fa fa-eraser"></button>
+        </div>
+        <div class="calculator-body">
+            <input type="text" id="expression" disabled>
+            <div class="button-grid">
+                <button value="7">7</button>
+                <button value="8">8</button>
+                <button value="9">9</button>
+                <button value="/">/</button>
+                <button value="4">4</button>
+                <button value="5">5</button>
+                <button value="6">6</button>
+                <button value="*">*</button>
+                <button value="1">1</button>
+                <button value="2">2</button>
+                <button value="3">3</button>
+                <button value="-">-</button>
+                <button value="0">0</button>
+                <button value=".">.</button>
+                <button value="=">=</button>
+                <button value="+">+</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const expressionInput = document.getElementById('expression');
+        const clearButton = document.getElementById('clear');
+        const buttons = document.querySelectorAll('.button-grid button');
+
+        clearButton.addEventListener('click', () => {
+            expressionInput.value = '';
+        });
+
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                if (button.value === '=') {
+                    try {
+                        const result = eval(expressionInput.value);
+                        expressionInput.value = result;
+                    } catch (error) {
+                        expressionInput.value = 'Error';
+                    }
+                } else {
+                    expressionInput.value += button.value;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
